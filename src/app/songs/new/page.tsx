@@ -26,6 +26,7 @@ export default function NewSongPage() {
       authorName: user.displayName,
       createdAt: serverTimestamp(),
     });
+    router.refresh();
     router.push("/");
   };
 
