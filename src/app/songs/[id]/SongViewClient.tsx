@@ -17,6 +17,18 @@ export default function SongViewClient({ song, songId }: { song: any; songId: st
   const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const savedKey = localStorage.getItem(`song-key-${songId}`);
+    if (savedKey && NOTES.includes(savedKey)) {
+      setTargetKey(savedKey);
+    }
+  }, [songId]);
+
+  const handleKeyChange = (newKey: string) => {
+    setTargetKey(newKey);
+    localStorage.setItem(`song-key-${songId}`, newKey);
+  };
+
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => setUser(u));
     return () => unsubscribe();
   }, []);
@@ -37,6 +49,7 @@ export default function SongViewClient({ song, songId }: { song: any; songId: st
   const handleDelete = async () => {
     if (!window.confirm("Delete this song?")) return;
     await deleteDoc(doc(db, "songs", songId));
+    localStorage.removeItem(`song-key-${songId}`);
     router.push("/");
   };
 
@@ -68,7 +81,7 @@ export default function SongViewClient({ song, songId }: { song: any; songId: st
           <div>
             <h1 className="text-3xl font-black mb-1 text-app-text">{song.title}</h1>
             <div className="flex items-center gap-4">
-              <p className="text-sm font-bold font-mono text-app-accent">Key: {targetKey}</p>
+              <p className="text-sm font-bold font-mono text-app-accent">Original Key: {song.originalKey}</p>
               {user?.uid === song.authorId && (
                 <div className="flex gap-2">
                   <Link href={`/songs/${songId}/edit`} className="text-[10px] px-3 py-1 rounded font-bold uppercase bg-app-accent text-app-bg hover:opacity-80 transition-opacity">
@@ -84,7 +97,7 @@ export default function SongViewClient({ song, songId }: { song: any; songId: st
           <select
             className="p-2 border border-app-border rounded-lg font-bold bg-transparent text-app-accent font-mono text-sm outline-none"
             value={targetKey}
-            onChange={(e) => setTargetKey(e.target.value)}
+            onChange={(e) => handleKeyChange(e.target.value)}
           >
             {NOTES.map(n => <option key={n} value={n} className="bg-app-card text-app-text">{n}</option>)}
           </select>

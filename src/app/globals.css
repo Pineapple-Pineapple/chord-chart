@@ -17,15 +17,15 @@
 }
 
 :root {
-  --bg: #ffffff;
-  --sidebar: #f6f8fa;
-  --card: #ffffff;
-  --text: #24292f;
-  --chord-bg: #afb8c133;
-  --chord-text: #0969da;
-  --section-text: #57606a;
-  --accent: #0969da;
-  --border: #d0d7de;
+  --bg: #272822;
+  --sidebar: #1e1f1c;
+  --card: #3e3d32;
+  --text: #f8f8f2;
+  --chord-bg: #a6e22e;
+  --chord-text: #272822;
+  --section-text: #fd971f;
+  --accent: #66d9ef;
+  --border: #49483e;
 }
 
 [data-theme='GitHub Light'] {
