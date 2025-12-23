@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { CHORD_REGEX, SECTION_REGEX } from "@/lib/music_utils";
+import { CHORD_REGEX, SECTION_REGEX, transposeChord } from "@/lib/music_utils";
 
 export default function LibraryClient({ initialSongs }: { initialSongs: any[] }) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -76,7 +76,7 @@ function SongCard({ song }: { song: any }) {
       <div className="min-h-[1.2rem] overflow-hidden whitespace-nowrap">
         {line.split(CHORD_REGEX).map((part, i) => (
           part.match(CHORD_REGEX)
-            ? <span key={i} className="font-bold text-app-chord-bg mr-1">{part}</span>
+            ? <span key={i} className="font-bold text-app-chord-bg mr-1">{transposeChord(part, song.originalKey, song.originalKey)}</span>
             : <span key={i} className="opacity-40">{part}</span>
         ))}
       </div>
