@@ -50,7 +50,7 @@ export default function LibraryClient({ initialSongs }: { initialSongs: any[] })
             className="w-full p-2.5 rounded-xl border border-app-border bg-app-card text-app-text outline-none focus:border-app-accent transition-colors"
           />
           <Link
-            href="/create"
+            href="/songs/new"
             className="bg-app-accent text-app-bg px-5 py-2.5 rounded-xl font-bold text-sm hover:scale-105 transition-transform whitespace-nowrap"
           >
             + New
