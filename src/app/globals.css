@@ -1,1 +1,221 @@
 @import "tailwindcss";
+
+@theme {
+  --color-app-bg: var(--bg);
+  --color-app-sidebar: var(--sidebar);
+  --color-app-card: var(--card);
+  --color-app-text: var(--text);
+  --color-app-chord-bg: var(--chord-bg);
+  --color-app-chord-text: var(--chord-text);
+  --color-app-section: var(--section-text);
+  --color-app-accent: var(--accent);
+  --color-app-border: var(--border);
+}
+
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+:root {
+  --bg: #ffffff;
+  --sidebar: #f6f8fa;
+  --card: #ffffff;
+  --text: #24292f;
+  --chord-bg: #afb8c133;
+  --chord-text: #0969da;
+  --section-text: #57606a;
+  --accent: #0969da;
+  --border: #d0d7de;
+}
+
+[data-theme='GitHub Light'] {
+  --bg: #ffffff;
+  --sidebar: #f6f8fa;
+  --card: #ffffff;
+  --text: #24292f;
+  --chord-bg: #afb8c133;
+  --chord-text: #0969da;
+  --section-text: #57606a;
+  --accent: #0969da;
+  --border: #d0d7de;
+}
+
+[data-theme='One Dark Pro'] {
+  --bg: #282c34;
+  --sidebar: #21252b;
+  --card: #2c313a;
+  --text: #abb2bf;
+  --chord-bg: #e06c75;
+  --chord-text: #ffffff;
+  --section-text: #d19a66;
+  --accent: #61afef;
+  --border: #181a1f;
+}
+
+[data-theme='Dracula'] {
+  --bg: #282a36;
+  --sidebar: #21222c;
+  --card: #44475a;
+  --text: #f8f8f2;
+  --chord-bg: #bd93f9;
+  --chord-text: #282a36;
+  --section-text: #ff79c6;
+  --accent: #50fa7b;
+  --border: #6272a4;
+}
+
+[data-theme='Monokai'] {
+  --bg: #272822;
+  --sidebar: #1e1f1c;
+  --card: #3e3d32;
+  --text: #f8f8f2;
+  --chord-bg: #a6e22e;
+  --chord-text: #272822;
+  --section-text: #fd971f;
+  --accent: #66d9ef;
+  --border: #49483e;
+}
+
+[data-theme='Night Owl'] {
+  --bg: #011627;
+  --sidebar: #0b2942;
+  --card: #01111d;
+  --text: #d6deeb;
+  --chord-bg: #ecc48d;
+  --chord-text: #011627;
+  --section-text: #c792ea;
+  --accent: #7fdbca;
+  --border: #1d3b53;
+}
+
+[data-theme='Solarized Light'] {
+  --bg: #fdf6e3;
+  --sidebar: #eee8d5;
+  --card: #ffffff;
+  --text: #586e75;
+  --chord-bg: #eee8d5;
+  --chord-text: #268bd2;
+  --section-text: #657b83;
+  --accent: #268bd2;
+  --border: #d5cfae;
+}
+
+[data-theme='Solarized Dark'] {
+  --bg: #002b36;
+  --sidebar: #073642;
+  --card: #003845;
+  --text: #93a1a1;
+  --chord-bg: #586e75;
+  --chord-text: #002b36;
+  --section-text: #b58900;
+  --accent: #268bd2;
+  --border: #004b5a;
+}
+
+[data-theme='Nord'] {
+  --bg: #2e3440;
+  --sidebar: #3b4252;
+  --card: #434c5e;
+  --text: #eceff4;
+  --chord-bg: #88c0d0;
+  --chord-text: #2e3440;
+  --section-text: #d8dee9;
+  --accent: #81a1c1;
+  --border: #4c566a;
+}
+
+[data-theme='Gruvbox Dark'] {
+  --bg: #282828;
+  --sidebar: #1d2021;
+  --card: #3c3836;
+  --text: #ebdbb2;
+  --chord-bg: #fabd2f;
+  --chord-text: #282828;
+  --section-text: #d5c4a1;
+  --accent: #83a598;
+  --border: #504945;
+}
+
+[data-theme='Gruvbox Light'] {
+  --bg: #fbf1c7;
+  --sidebar: #ebdbb2;
+  --card: #f9f5d7;
+  --text: #3c3836;
+  --chord-bg: #d79921;
+  --chord-text: #ffffff;
+  --section-text: #665c54;
+  --accent: #458588;
+  --border: #d5c4a1;
+}
+
+[data-theme='Tokyo Night'] {
+  --bg: #1a1b26;
+  --sidebar: #16161e;
+  --card: #24283b;
+  --text: #c0caf5;
+  --chord-bg: #7aa2f7;
+  --chord-text: #1a1b26;
+  --section-text: #9aa5ce;
+  --accent: #bb9af7;
+  --border: #414868;
+}
+
+[data-theme='Catppuccin Mocha'] {
+  --bg: #1e1e2e;
+  --sidebar: #181825;
+  --card: #313244;
+  --text: #cdd6f4;
+  --chord-bg: #f5c2e7;
+  --chord-text: #1e1e2e;
+  --section-text: #bac2de;
+  --accent: #89b4fa;
+  --border: #45475a;
+}
+
+[data-theme='VS Code Light'] {
+  --bg: #ffffff;
+  --sidebar: #f3f3f3;
+  --card: #ffffff;
+  --text: #333333;
+  --chord-bg: #d7ba7d;
+  --chord-text: #000000;
+  --section-text: #6a737d;
+  --accent: #007acc;
+  --border: #e1e4e8;
+}
+
+[data-theme='Ayu Mirage'] {
+  --bg: #1f2430;
+  --sidebar: #1c1f2b;
+  --card: #2a2f3a;
+  --text: #cbccc6;
+  --chord-bg: #ffd173;
+  --chord-text: #1f2430;
+  --section-text: #707a8c;
+  --accent: #5ccfe6;
+  --border: #3a3f4b;
+}
+
+[data-theme='Material Dark'] {
+  --bg: #263238;
+  --sidebar: #1e272c;
+  --card: #2e3c43;
+  --text: #eeffff;
+  --chord-bg: #82aaff;
+  --chord-text: #263238;
+  --section-text: #b2ccd6;
+  --accent: #c792ea;
+  --border: #37474f;
+}
+
+[data-theme='Synthwave 84'] {
+  --bg: #2b213a;
+  --sidebar: #241b2f;
+  --card: #3a2d4f;
+  --text: #f8f8f2;
+  --chord-bg: #ff7edb;
+  --chord-text: #2b213a;
+  --section-text: #fede5d;
+  --accent: #36f9f6;
+  --border: #4b3b63;
+}
