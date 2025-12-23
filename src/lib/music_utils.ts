@@ -8,7 +8,7 @@ export function transposeChord(chord: string, fromKey: string, toKey: string): s
 
   const normalize = (n: string) => {
     let normalized = n.replace('Bb', 'A#').replace('Eb', 'D#').replace('Ab', 'G#').replace('Db', 'C#').replace('Gb', 'F#');
-    return normalized === 'H' ? 'B' : normalized;
+    return normalized === 'B' ? 'H' : normalized;
   };
 
   const noteIdx = NOTES.indexOf(normalize(note));
