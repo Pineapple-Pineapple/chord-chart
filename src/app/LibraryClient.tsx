@@ -93,7 +93,7 @@ function SongCard({ song }: { song: any }) {
           <h2 className="text-xl font-bold text-app-text group-hover:text-app-accent transition-colors truncate mt-2">
             {song.title}
           </h2>
-          <p className="text-xs opacity-50">
+          <p className="text-xs opacity-50" suppressHydrationWarning>
             Added on {new Date(song.createdAt).toLocaleDateString()}
           </p>
         </div>

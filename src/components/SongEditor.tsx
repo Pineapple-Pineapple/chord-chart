@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { NOTES, CHORD_REGEX, SECTION_REGEX } from "@/lib/music_utils";
+import { NOTES, CHORD_REGEX, SECTION_REGEX, transposeChord } from "@/lib/music_utils";
 
 interface SongEditorProps {
   initialTitle?: string;
@@ -38,7 +38,7 @@ export default function SongEditor({
               key={i}
               className="font-bold px-1.5 py-0.5 rounded mx-0.5 bg-app-chord-bg text-app-chord-text"
             >
-              {part}
+              {transposeChord(part, originalKey, originalKey).slice(1, -1)}
             </span> :
             part
         ))}

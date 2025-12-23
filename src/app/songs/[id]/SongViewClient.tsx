@@ -53,7 +53,7 @@ export default function SongViewClient({ song, songId }: { song: any; songId: st
       <div className="min-h-6 font-mono whitespace-pre">
         {line.split(CHORD_REGEX).map((part, i) => (
           part.match(CHORD_REGEX) ?
-            <span key={i} className="font-bold px-1.5 py-0.5 rounded bg-app-chord-bg text-app-chord-text">
+            <span key={i} className="font-bold px-1.5 py-0.5 rounded mx-0.5 bg-app-chord-bg text-app-chord-text">
               {transposeChord(part, song.originalKey, targetKey).slice(1, -1)}
             </span> : part
         ))}
