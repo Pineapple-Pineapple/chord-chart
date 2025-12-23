@@ -2,6 +2,7 @@ import { db } from "@/lib/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { notFound } from "next/navigation";
 import SongViewClient from "./SongViewClient";
+import { Song } from "@/types";
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -14,9 +15,13 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     if (!docSnap.exists()) notFound();
 
     const data = docSnap.data();
-    const songData = {
-      ...data,
+    const songData: Song = {
       id: docSnap.id,
+      title: data.title || "",
+      content: data.content || "",
+      originalKey: data.originalKey || "C",
+      authorId: data.authorId || "",
+      authorName: data.authorName || null,
       createdAt: data.createdAt?.toMillis() || null,
       updatedAt: data.updatedAt?.toMillis() || null,
     };

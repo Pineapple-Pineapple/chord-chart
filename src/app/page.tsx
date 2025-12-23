@@ -1,11 +1,12 @@
 import { db } from "@/lib/firebase";
 import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import LibraryClient from "./LibraryClient";
+import { Song } from "@/types";
 
 export const revalidate = 30;
 
 export default async function LibraryPage() {
-  let songs: any[] = [];
+  let songs: Song[] = [];
 
   try {
     const q = query(collection(db, "songs"), orderBy("title", "asc"));
@@ -15,10 +16,14 @@ export default async function LibraryPage() {
       const data = doc.data();
       return {
         id: doc.id,
-        ...data,
+        title: data.title || "",
+        content: data.content || "",
+        originalKey: data.originalKey || "C",
+        authorId: data.authorId || "",
+        authorName: data.authorName || null,
         createdAt: data.createdAt?.toMillis() || null,
         updatedAt: data.updatedAt?.toMillis() || null,
-      };
+      } as Song;
     });
   } catch (error) {
     console.error("Error fetching library:", error);

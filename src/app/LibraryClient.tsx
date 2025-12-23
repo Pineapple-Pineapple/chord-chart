@@ -3,8 +3,13 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { CHORD_REGEX, SECTION_REGEX, transposeChord } from "@/lib/music_utils";
+import { Song, SongWithScore } from "@/types";
 
-export default function LibraryClient({ initialSongs }: { initialSongs: any[] }) {
+interface LibraryClientProps {
+  initialSongs: Song[];
+}
+
+export default function LibraryClient({ initialSongs }: LibraryClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredSongs = useMemo(() => {
@@ -12,7 +17,7 @@ export default function LibraryClient({ initialSongs }: { initialSongs: any[] })
 
     const query = searchQuery.toLowerCase();
 
-    const scored = initialSongs.reduce((acc: any[], song) => {
+    const scored = initialSongs.reduce((acc: SongWithScore[], song) => {
       const titleMatch = song.title.toLowerCase().includes(query);
       const contentMatch = song.content.toLowerCase().includes(query);
 
@@ -25,7 +30,7 @@ export default function LibraryClient({ initialSongs }: { initialSongs: any[] })
 
     return scored.sort((a, b) => {
       if (b.searchScore !== a.searchScore) {
-        return b.searchScore - a.searchScore;
+        return (b.searchScore || 0) - (a.searchScore || 0);
       }
       return a.title.localeCompare(b.title);
     });
@@ -67,7 +72,11 @@ export default function LibraryClient({ initialSongs }: { initialSongs: any[] })
   );
 }
 
-function SongCard({ song }: { song: any }) {
+interface SongCardProps {
+  song: Song;
+}
+
+function SongCard({ song }: SongCardProps) {
   const renderPreviewLine = (line: string) => {
     if (SECTION_REGEX.test(line)) {
       return <div className="text-[9px] font-bold uppercase text-app-section mb-1">{line}</div>;
@@ -94,7 +103,7 @@ function SongCard({ song }: { song: any }) {
             {song.title}
           </h2>
           <p className="text-xs opacity-50" suppressHydrationWarning>
-            Added on {new Date(song.createdAt).toLocaleDateString()}
+            Added on {song.createdAt ? new Date(song.createdAt).toLocaleDateString() : 'Unknown'}
           </p>
         </div>
 

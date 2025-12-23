@@ -1,15 +1,16 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { ThemeContextType } from "@/types";
 
-const ThemeContext = createContext({
-  currentTheme: "Ayu Mirage",
-  setTheme: (name: string) => { },
+const ThemeContext = createContext<ThemeContextType>({
+  currentTheme: "Monokai",
+  setTheme: () => { },
 });
 
 export const useTheme = () => useContext(ThemeContext);
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
+export function ThemeProvider({ children }: { children: ReactNode }) {
   const [themeName, setThemeName] = useState("Monokai");
 
   useEffect(() => {

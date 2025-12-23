@@ -6,6 +6,7 @@ import { auth, db } from "@/lib/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import SongEditor from "@/components/SongEditor";
+import { SongEditorData } from "@/types";
 
 export default function NewSongPage() {
   const [user, setUser] = useState<User | null>(null);
@@ -18,7 +19,7 @@ export default function NewSongPage() {
     });
   }, [router]);
 
-  const handleSave = async (data: any) => {
+  const handleSave = async (data: SongEditorData) => {
     if (!user) return;
     await addDoc(collection(db, "songs"), {
       ...data,

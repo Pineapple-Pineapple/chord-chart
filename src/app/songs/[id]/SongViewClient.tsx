@@ -7,8 +7,14 @@ import { auth, db } from "@/lib/firebase";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { doc, deleteDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
+import { Song } from "@/types";
 
-export default function SongViewClient({ song, songId }: { song: any; songId: string }) {
+interface SongViewClientProps {
+  song: Song;
+  songId: string;
+}
+
+export default function SongViewClient({ song, songId }: SongViewClientProps) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [targetKey, setTargetKey] = useState(song.originalKey);

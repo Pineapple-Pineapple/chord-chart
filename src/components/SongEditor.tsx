@@ -2,14 +2,7 @@
 
 import { useState } from "react";
 import { NOTES, CHORD_REGEX, SECTION_REGEX, transposeChord } from "@/lib/music_utils";
-
-interface SongEditorProps {
-  initialTitle?: string;
-  initialContent?: string;
-  initialKey?: string;
-  onSave: (data: { title: string; content: string; originalKey: string }) => void;
-  isUpdating?: boolean;
-}
+import { SongEditorProps } from "@/types";
 
 export default function SongEditor({
   initialTitle = "",
