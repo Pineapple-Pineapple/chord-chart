@@ -3,7 +3,7 @@ import { collection, getDocs, query, orderBy } from "firebase/firestore";
 import LibraryClient from "./LibraryClient";
 import { Song } from "@/types";
 
-export const revalidate = 30;
+export const revalidate = 0;
 
 export default async function LibraryPage() {
   let songs: Song[] = [];

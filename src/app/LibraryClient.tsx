@@ -102,7 +102,7 @@ function SongCard({ song }: SongCardProps) {
           <h2 className="text-xl font-bold text-app-text group-hover:text-app-accent transition-colors truncate mt-2">
             {song.title}
           </h2>
-          <p className="text-xs opacity-50" suppressHydrationWarning>
+          <p className="text-xs opacity-50">
             Added on {song.createdAt ? new Date(song.createdAt).toLocaleDateString() : 'Unknown'}
           </p>
         </div>
