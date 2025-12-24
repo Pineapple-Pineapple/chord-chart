@@ -24,7 +24,7 @@ export default function Navbar() {
             href="/"
             className="text-lg sm:text-xl font-bold tracking-tighter shrink-0 text-app-accent hover:opacity-80 transition-opacity"
           >
-            PINECHORD
+            CHORDCHART
           </Link>
 
           <select

@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pinechord",
+  title: "Chord Chart",
   description: "Chord chart library",
 };
 
