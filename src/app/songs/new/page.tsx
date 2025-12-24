@@ -14,7 +14,10 @@ export default function NewSongPage() {
 
   useEffect(() => {
     return onAuthStateChanged(auth, (u) => {
-      if (!u) router.push("/");
+      if (!u) {
+        router.push("/");
+        window.alert("You must be logged in to create a new song");
+      }
       else setUser(u);
     });
   }, [router]);
