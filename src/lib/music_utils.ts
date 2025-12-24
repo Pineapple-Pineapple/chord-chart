@@ -1,30 +1,37 @@
 export const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
 
 export function transposeChord(chord: string, fromKey: string, toKey: string): string {
-  const match = chord.match(/^\((?=[A-G|H])([A-G|H][b#]?)(.*)\)$/);
+  const match = chord.match(/^\((?=[A-GH])([A-GH][b#]?)([^/)]*)(?:\/([A-GH][b#]?))?\)$/);
   if (!match) return chord;
 
-  const [_, note, quality] = match;
+  const [, root, quality, bass] = match;
 
   const normalize = (n: string) => {
-    let normalized = n.replace('Bb', 'A#').replace('Eb', 'D#').replace('Ab', 'G#').replace('Db', 'C#').replace('Gb', 'F#');
+    let normalized = n
+      .replace('Bb', 'A#')
+      .replace('Eb', 'D#')
+      .replace('Ab', 'G#')
+      .replace('Db', 'C#')
+      .replace('Gb', 'F#');
     return normalized === 'B' ? 'H' : normalized;
   };
 
-  const noteIdx = NOTES.indexOf(normalize(note));
-  const fromIdx = NOTES.indexOf(normalize(fromKey));
-  const toIdx = NOTES.indexOf(normalize(toKey));
+  const shift = (note: string) => {
+    const noteIdx = NOTES.indexOf(normalize(note));
+    const fromIdx = NOTES.indexOf(normalize(fromKey));
+    const toIdx = NOTES.indexOf(normalize(toKey));
+    if (noteIdx === -1 || fromIdx === -1 || toIdx === -1) return note;
 
-  if (noteIdx === -1 || fromIdx === -1 || toIdx === -1) return chord;
+    let newIdx = (noteIdx + (toIdx - fromIdx)) % 12;
+    if (newIdx < 0) newIdx += 12;
+    return NOTES[newIdx];
+  };
 
-  const diff = toIdx - fromIdx;
-  let newIdx = (noteIdx + diff) % 12;
-  if (newIdx < 0) newIdx += 12;
+  const newRoot = shift(root);
+  const newBass = bass ? `/${shift(bass)}` : '';
 
-  const resultNote = NOTES[newIdx];
-
-  return `(${resultNote}${quality})`;
+  return `(${newRoot}${quality}${newBass})`;
 }
 
-export const CHORD_REGEX = /(\([A-G|H][b#]?[m]?[0-9]?\))/g;
+export const CHORD_REGEX = /(\([A-GH][b#]?(?:m|maj|dim|aug)?[0-9]*(?:sus[24]?)?(?:add[0-9]+)?(?:\/[A-GH][b#]?)?\))/g;
 export const SECTION_REGEX = /^(\[.*\])/;
