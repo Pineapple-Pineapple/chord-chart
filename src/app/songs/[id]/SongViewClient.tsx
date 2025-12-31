@@ -82,7 +82,6 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
 
   return (
     <main className="max-w-7xl mx-auto p-4 md:p-10">
-      <title>{song.title}</title>
       <div ref={containerRef} className="p-8 md:p-12 rounded-xl border border-app-border bg-app-card shadow-inner overflow-hidden">
         <div className="mb-8 border-b border-app-border pb-6 flex flex-col md:flex-row justify-between items-start gap-4">
           <div>
