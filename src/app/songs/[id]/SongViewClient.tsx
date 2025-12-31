@@ -72,7 +72,7 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
       <div className="min-h-6 font-mono whitespace-pre">
         {line.split(CHORD_REGEX).map((part, i) => (
           part.match(CHORD_REGEX) ?
-            <span key={i} className="font-bold px-1.5 py-0.5 rounded mx-0.5 bg-app-chord-bg text-app-chord-text">
+            <span key={i} className="font-bold px-1.5 rounded bg-app-chord-bg text-app-chord-text">
               {transposeChord(part, song.originalKey, targetKey).slice(1, -1)}
             </span> : part
         ))}
@@ -87,6 +87,9 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
         <div className="mb-8 border-b border-app-border pb-6 flex flex-col md:flex-row justify-between items-start gap-4">
           <div>
             <h1 className="text-3xl font-black mb-1 text-app-text">{song.title}</h1>
+            <p className="text-xs opacity-50 mb-4">
+              Last updated on {song.updatedAt ? new Date(song.updatedAt).toLocaleDateString() : 'Unknown'}
+            </p>
             <div className="flex items-center gap-4">
               <p className="text-sm font-bold font-mono text-app-accent">Original Key: {song.originalKey}</p>
               {user?.uid === song.authorId && (
@@ -111,7 +114,7 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
         </div>
 
         <div className="w-full overflow-hidden">
-          <div ref={contentRef} className="leading-[2.8rem] text-lg md:text-xl origin-top-left inline-block text-app-text" style={{ transform: `scale(${scale})` }}>
+          <div ref={contentRef} className="leading-8 text-lg md:text-xl origin-top-left inline-block text-app-text" style={{ transform: `scale(${scale})` }}>
             {song.content.split("\n").map((line: string, i: number) => <div key={i}>{renderLine(line)}</div>)}
           </div>
         </div>
