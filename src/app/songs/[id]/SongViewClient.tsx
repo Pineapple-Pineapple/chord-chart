@@ -18,6 +18,7 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [targetKey, setTargetKey] = useState(song.originalKey);
+  const [showChords, setShowChords] = useState(true);
   const [scale, setScale] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -50,7 +51,7 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [song, targetKey]);
+  }, [song, targetKey, showChords]);
 
   const handleDelete = async () => {
     if (!window.confirm("Delete this song?")) return;
@@ -68,14 +69,24 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
       );
     }
 
+    const hasLyrics = line.replace(CHORD_REGEX, "").trim().length > 0;
+
+    if (!showChords && !hasLyrics) {
+      return null;
+    }
+
     return (
       <div className="min-h-6 font-mono whitespace-pre">
-        {line.split(CHORD_REGEX).map((part, i) => (
-          part.match(CHORD_REGEX) ?
-            <span key={i} className="font-bold px-1.5 rounded bg-app-chord-bg text-app-chord-text">
-              {transposeChord(part, song.originalKey, targetKey).slice(1, -1)}
-            </span> : part
-        ))}
+        {line.split(CHORD_REGEX).map((part, i) => {
+          if (part.match(CHORD_REGEX)) {
+            return showChords ? (
+              <span key={i} className="font-bold px-1.5 rounded bg-app-chord-bg text-app-chord-text">
+                {transposeChord(part, song.originalKey, targetKey).slice(1, -1)}
+              </span>
+            ) : null;
+          }
+          return part;
+        })}
       </div>
     );
   };
@@ -96,25 +107,35 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
                   <Link href={`/songs/${songId}/edit`} className="text-[10px] px-3 py-1 rounded font-bold uppercase bg-app-accent text-app-bg hover:opacity-80 transition-opacity">
                     Edit
                   </Link>
-                  <button onClick={handleDelete} className="text-[10px] px-3 py-1 rounded font-bold uppercase border border-app-border text-app-text hover:bg-red-500 hover:text-white transition-all">
+                  <button onClick={handleDelete} className="text-[10px] px-3 py-1 rounded font-bold uppercase border border-app-border text-app-text hover:bg-red-500 hover:text-white cursor-pointer">
                     Delete
                   </button>
                 </div>
               )}
             </div>
           </div>
-          <select
-            className="p-2 border border-app-border rounded-lg font-bold bg-transparent text-app-accent font-mono text-sm outline-none"
-            value={targetKey}
-            onChange={(e) => handleKeyChange(e.target.value)}
-          >
-            {NOTES.map(n => <option key={n} value={n} className="bg-app-card text-app-text">{n}</option>)}
-          </select>
+          <div className="flex items-center gap-2">
+            <select
+              className="p-2 border border-app-border rounded-lg font-bold bg-transparent text-app-accent font-mono text-sm outline-none cursor-pointer"
+              value={targetKey}
+              onChange={(e) => handleKeyChange(e.target.value)}
+            >
+              {NOTES.map(n => <option key={n} value={n} className="bg-app-card text-app-text">{n}</option>)}
+            </select>
+            <button
+              onClick={() => setShowChords(!showChords)}
+              className={`p-2 border border-app-border rounded-lg font-bold font-mono text-sm transition-all ${!showChords ? "bg-app-accent text-app-bg border-app-accent" : "text-app-accent hover:bg-app-accent/10"} cursor-pointer`}
+            >
+              {showChords ? "Hide Chords" : "Show Chords"}
+            </button>
+          </div>
         </div>
 
         <div className="w-full overflow-hidden">
           <div ref={contentRef} className="leading-8 text-lg md:text-xl origin-top-left inline-block text-app-text" style={{ transform: `scale(${scale})` }}>
-            {song.content.split("\n").map((line: string, i: number) => <div key={i}>{renderLine(line)}</div>)}
+            {song.content.split("\n").map((line: string, i: number) => (
+              <div key={i}>{renderLine(line)}</div>
+            ))}
           </div>
         </div>
       </div>
