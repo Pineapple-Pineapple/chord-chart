@@ -219,3 +219,37 @@
   --accent: #36f9f6;
   --border: #4b3b63;
 }
+
+@media print {
+  /* Override all theme backgrounds/text to white/black — chord colors are preserved */
+  :root, [data-theme] {
+    --bg: #ffffff;
+    --sidebar: #ffffff;
+    --card: #ffffff;
+    --text: #000000;
+    --border: #cccccc;
+    --section-text: #444444;
+  }
+
+  /* Preserve chord badge and accent colors when printing */
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @page {
+    margin: 1.5cm;
+  }
+
+  /* Collapse cell grid to single column */
+  .cell-grid {
+    display: block !important;
+  }
+
+  .cell-card {
+    margin-bottom: 1rem;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    border: 1px solid #ccc !important;
+  }
+}

@@ -66,7 +66,7 @@ export default function SongEditor({
         </select>
 
         <textarea
-          className="w-full h-125 p-4 border border-app-border rounded-lg font-mono text-sm outline-none bg-app-card text-app-text focus:border-app-accent transition-colors resize-none"
+          className="w-full h-64 md:h-125 p-4 border border-app-border rounded-lg font-mono text-sm outline-none bg-app-card text-app-text focus:border-app-accent transition-colors resize-none"
           placeholder="[Verse 1] (H) Lyrics..."
           value={content}
           onChange={e => setContent(e.target.value)}
@@ -80,7 +80,7 @@ export default function SongEditor({
         </button>
       </div>
 
-      <div className="p-8 rounded-xl border border-app-border bg-app-card overflow-y-auto max-h-200 shadow-inner">
+      <div className="p-8 rounded-xl border border-app-border bg-app-card overflow-y-auto max-h-[60vh] md:max-h-200 shadow-inner">
         <h2 className="text-[10px] font-black mb-4 uppercase tracking-widest opacity-40 text-app-text">
           Live Preview
         </h2>

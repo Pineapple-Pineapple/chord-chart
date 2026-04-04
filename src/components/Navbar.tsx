@@ -16,7 +16,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="sticky top-0 z-50 p-4 border-b border-app-border bg-app-sidebar transition-colors duration-300">
+    <nav className="print:hidden sticky top-0 z-50 p-4 border-b border-app-border bg-app-sidebar transition-colors duration-300">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
 
         <div className="flex items-center gap-3 sm:gap-8 flex-1 min-w-0">
@@ -28,6 +28,7 @@ export default function Navbar() {
           </Link>
 
           <select
+            suppressHydrationWarning
             className="text-[10px] sm:text-xs p-1.5 rounded-md border border-app-border bg-app-card text-app-text cursor-pointer outline-none shrink-0"
             value={currentTheme}
             onChange={(e) => setTheme(e.target.value)}
@@ -60,7 +61,7 @@ export default function Navbar() {
           ) : (
             <button
               onClick={() => signInWithPopup(auth, new GoogleAuthProvider())}
-              className="text-[10px] sm:text-xs font-bold px-4 py-1.5 rounded-full border border-app-accent text-app-accent hover:bg-app-accent hover:text-app-bg transition-all uppercase"
+              className="text-[10px] sm:text-xs font-bold px-4 py-2.5 rounded-full border border-app-accent text-app-accent hover:bg-app-accent hover:text-app-bg transition-all uppercase"
             >
               Sign In
             </button>

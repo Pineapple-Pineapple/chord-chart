@@ -103,7 +103,7 @@ function SongCard({ song }: SongCardProps) {
             {song.title}
           </h2>
           <p className="text-xs opacity-50">
-            Added on {song.createdAt ? new Date(song.createdAt).toLocaleDateString() : 'Unknown'}
+            Added on {song.createdAt ? new Date(song.createdAt).toLocaleDateString('en-US') : 'Unknown'}
           </p>
         </div>
 
