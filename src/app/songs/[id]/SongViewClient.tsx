@@ -302,14 +302,14 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
               {autoScroll ? "⏸" : "▶"} Scroll
             </button>
             <button
-              onClick={() => setScrollSpeed(s => Math.max(1, s - 1))}
+              onClick={() => setScrollSpeed(s => Math.max(1, s - 0.25))}
               className="w-10 h-10 rounded-lg border border-app-border text-app-text hover:bg-app-accent/10 font-bold text-base cursor-pointer flex items-center justify-center"
             >
               −
             </button>
             <span className="text-xs font-mono text-app-text w-5 text-center select-none">{scrollSpeed}</span>
             <button
-              onClick={() => setScrollSpeed(s => Math.min(10, s + 1))}
+              onClick={() => setScrollSpeed(s => Math.min(10, s + 0.25))}
               className="w-10 h-10 rounded-lg border border-app-border text-app-text hover:bg-app-accent/10 font-bold text-base cursor-pointer flex items-center justify-center"
             >
               +
@@ -328,7 +328,6 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
               {song.updatedAt && (
                 <> · Updated {new Date(song.updatedAt).toLocaleDateString('en-US')}</>
               )}
-              {song.authorName && <> · {song.authorName}</>}
             </p>
           </div>
           {user?.uid === song.authorId && (
