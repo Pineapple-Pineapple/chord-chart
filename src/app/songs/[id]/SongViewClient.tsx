@@ -302,7 +302,7 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
               {autoScroll ? "⏸" : "▶"} Scroll
             </button>
             <button
-              onClick={() => setScrollSpeed(s => Math.max(1, s - 0.25))}
+              onClick={() => setScrollSpeed(s => Math.max(0.25, s - 0.25))}
               className="w-10 h-10 rounded-lg border border-app-border text-app-text hover:bg-app-accent/10 font-bold text-base cursor-pointer flex items-center justify-center"
             >
               −
