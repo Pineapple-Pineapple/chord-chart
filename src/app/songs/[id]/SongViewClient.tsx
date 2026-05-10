@@ -94,15 +94,21 @@ export default function SongViewClient({ song, songId }: SongViewClientProps) {
     }
 
     let lastTime: number | null = null;
+    let accumulated = 0;
     const pixelsPerSecond = scrollSpeed * 20;
 
     const step = (time: number) => {
       if (lastTime !== null) {
         const delta = (time - lastTime) / 1000;
-        window.scrollBy(0, pixelsPerSecond * delta);
-        if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
-          setAutoScroll(false);
-          return;
+        accumulated += pixelsPerSecond * delta;
+        const toScroll = Math.floor(accumulated);
+        if (toScroll >= 1) {
+          window.scrollBy(0, toScroll);
+          accumulated -= toScroll;
+          if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2) {
+            setAutoScroll(false);
+            return;
+          }
         }
       }
       lastTime = time;
